@@ -1,0 +1,75 @@
+{% extends "Core/base.html" %} 
+{% load static %}
+
+{% block title %} PMS - home {% endblock %} 
+{% block extra_css %}
+
+<style>
+  .row .card {
+    border-radius: 10px;
+    background-color: white;
+  }
+  body {
+    background-color: #efefef;
+  }
+  h5 {
+    color: #007bff;
+  }
+</style>
+{% endblock %} 
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      <img
+        src="{{request.user.profile.image.url}}"
+        class="img-fluid rounded-circle"
+        alt="Profile Image"
+      />
+    </div>
+    <div class="col-md-9">
+      <h3>{{employee.first_name}} {{employee.last_name}}</h3>
+      <p>{{employee.job_tiltle}}</p>
+      <p><strong>Email:</strong> {{employee.email}}</p>
+      <p><strong>Phone:</strong> {{employee.phone_number}}</p>
+      <p>
+        <strong>Position:</strong> <span class="text-danger">Unit Leader</span>
+      </p>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <h4>Employees</h4>
+      {% for emp in employees %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{emp.first_name}} {{emp.last_name}}</h5>
+          <p class="card-text">{{emp.job_title}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <a href="{% url 'employees' %}" class="text-primary"
+        >All Employees &rarr;</a
+      >
+      <!-- Updated link -->
+    </div>
+    <div class="col-md-6">
+      <h4>Plans</h4>
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{annual_plan.activity}}</h5>
+          <p class="card-text">Annual Plan</p>
+        </div>
+      </div>
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{casual_plan.activity}}</h5>
+          <p class="card-text">Casual Plan</p>
+        </div>
+      </div>
+      <a href="{% url 'all_plans' %}" class="text-primary">All Plans &rarr;</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
